@@ -2,8 +2,21 @@
 
 namespace LibASN1;
 
-abstract class OctetString implements Type
+class OctetString implements ConstructableType
 {
+    protected $_value = '';
+    protected $_pointer = 0;
+
+    public function __construct($value)
+    {
+        $this->_value = (string) $value;
+    }
+
+    public function isConstructed()
+    {
+        return false;
+    }
+
     public function getNumber()
     {
         return 4;
@@ -14,8 +27,26 @@ abstract class OctetString implements Type
         return self::CLASS_UNIVERSAL;
     }
 
-    abstract public function isConstructed();
+    public function getValue()
+    {
+        return $this->_value;
+    }
 
-    abstract public function hasMore();
-    abstract public function getChunk();
+    public function setValue($value)
+    {
+        $this->_value = (string) $value;
+    }
+
+    public function hasMore()
+    {
+        return $this->pointer < strlen($this->_value);
+    }
+
+    public function getChunk()
+    {
+        $result = substr($this->_value, $this->pointer);
+        $this->pointer = strlen($this->_value);
+
+        return $result;
+    }
 }

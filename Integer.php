@@ -2,13 +2,18 @@
 
 namespace LibASN1;
 
-class Integer extends PrimitiveType
+class Integer implements ValuedType
 {
-    private $value = 0;
+    protected $_value = 0;
 
     public function __construct($value = 0)
     {
-        $this->value = (int) $value;
+        $this->_value = (int) $value;
+    }
+
+    final public function isConstructed()
+    {
+        return false;
     }
 
     public function getNumber()
@@ -23,11 +28,11 @@ class Integer extends PrimitiveType
 
     public function getValue()
     {
-        return $this->value;
+        return $this->_value;
     }
 
     public function setValue($value)
     {
-        $this->value = (int) $value;
+        $this->_value = (int) $value;
     }
 }

@@ -2,13 +2,18 @@
 
 namespace LibASN1;
 
-class Boolean extends PrimitiveType
+class Boolean implements ValuedType
 {
-    private $value = false;
+    protected $_value = false;
 
     public function __construct($value = false)
     {
-        $this->value = (bool) $value;
+        $this->_value = (bool) $value;
+    }
+
+    final public function isConstructed()
+    {
+        return false;
     }
 
     public function getNumber()
@@ -23,11 +28,11 @@ class Boolean extends PrimitiveType
 
     public function getValue()
     {
-        return $this->value;
+        return $this->_value;
     }
 
     public function setValue($value)
     {
-        $this->value = (bool) $value;
+        $this->_value = (bool) $value;
     }
 }

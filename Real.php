@@ -2,13 +2,18 @@
 
 namespace LibASN1;
 
-class Real extends PrimitiveType
+class Real implements ValuedType
 {
-    private $value = 0;
+    protected $_value = 0;
 
     public function __construct($value = 0)
     {
-        $this->value = (float) $value;
+        $this->_value = (float) $value;
+    }
+
+    final public function isConstructed()
+    {
+        return false;
     }
 
     public function getNumber()
@@ -23,11 +28,11 @@ class Real extends PrimitiveType
 
     public function getValue()
     {
-        return $this->value;
+        return $this->_value;
     }
 
     public function setValue($value)
     {
-        $this->value = (bool) $value;
+        $this->_value = (float) $value;
     }
 }

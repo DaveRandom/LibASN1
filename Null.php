@@ -2,8 +2,13 @@
 
 namespace LibASN1;
 
-class Null extends PrimitiveType
+class Null implements Type
 {
+    final public function isConstructed()
+    {
+        return false;
+    }
+
     public function getNumber()
     {
         return 5;
@@ -13,11 +18,4 @@ class Null extends PrimitiveType
     {
         return self::CLASS_UNIVERSAL;
     }
-
-    public function getValue()
-    {
-        return null;
-    }
-
-    public function setValue($value) {}
 }

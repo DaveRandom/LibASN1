@@ -1,33 +1,19 @@
 <?php
 
-namespace LibBER;
+namespace LibASN1;
 
-class Enumeration extends PrimitiveType
+class Enumeration extends Integer
 {
-    private $value = 0;
-
-    public function __construct($value = 0)
-    {
-        $this->value = (int) $value;
-    }
+    abstract protected function validateValue($value);
 
     public function getNumber()
     {
         return 10;
     }
 
-    public function getClass()
-    {
-        return self::CLASS_UNIVERSAL;
-    }
-
-    public function getValue()
-    {
-        return $this->value;
-    }
-
     public function setValue($value)
     {
-        $this->value = (int) $value;
+        $this->validateValue($value);
+        $this->_value = (int) $value;
     }
 }

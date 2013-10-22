@@ -2,48 +2,26 @@
 
 namespace LibASN1;
 
-abstract class Collection extends ConstructedType implements \IteratorAggregate, \ArrayAccess, \Countable
+abstract class Collection implements Type, \IteratorAggregate, \ArrayAccess, \Countable
 {
-    private $components = [];
+    protected $components = [];
 
-    protected function getItem($index)
+    final public function isConstructed()
     {
-        if (!isset($this->components[$index])) {
-            throw new \OutOfRangeException("Invalid index '$index'");
-        }
-
-        return $this->components[$index];
+        return true;
     }
-
-    protected function setItem($index, Type $value)
-    {
-        $this->components[$index] = $value;
-    }
+    abstract public function getNumber();
+    abstract public function getClass();
 
     final public function getIterator()
     {
         return new \ArrayIterator($this->components);
     }
 
-    final public function offsetExists($index)
-    {
-        return isset($this->components[$index]);
-    }
-
-    final public function offsetGet($index)
-    {
-        return $this->getItem($index);
-    }
-
-    final public function offsetSet($index, $value)
-    {
-        $this->setItem($index, $value);
-    }
-
-    final public function offsetUnset($index)
-    {
-        unset($this->components[$index]);
-    }
+    abstract public function offsetExists($index);
+    abstract public function offsetGet($index);
+    abstract public function offsetSet($index, $value);
+    abstract public function offsetUnset($index);
 
     final public function count()
     {
